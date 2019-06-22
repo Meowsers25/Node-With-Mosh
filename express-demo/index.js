@@ -3,7 +3,7 @@ const app = express()
 
 // HTTP verbs
 app.get('/', (req, res) => {
-    res.send('Hello, Express!!!! :0')
+    res.send('Hello, Express!!!!@@@@ :0')
 })
 
 app.get('/api/courses', (req, res) => {
