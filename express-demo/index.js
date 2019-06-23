@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 
+// middleware
+app.use(express.json())
+
 const courses = [
     { id: 1, name:'course 1' },
     { id: 2, name:'course 2' },
@@ -29,6 +32,18 @@ app.get('/api/courses/:id', (req, res) => {
     if(!course) res.status(404).send('No course with that ID')
     res.send(course)
 })
+
+// post course
+app.post('/api/courses', (req, res) => {
+    const course = {
+        id: courses.length + 1,
+        name: req.body.name
+    }
+    courses.push(course)
+    res.send(course)
+})
+
+// environment variable
 const port = process.env.PORT || 3000
 
 app.listen(3000, () => console.log(`Listening on port ${port}....`))
