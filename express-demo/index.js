@@ -1,3 +1,4 @@
+const Joi = require('joi')
 const express = require('express')
 const app = express()
 
@@ -35,6 +36,25 @@ app.get('/api/courses/:id', (req, res) => {
 
 // post course
 app.post('/api/courses', (req, res) => {
+    // define schema object to utilize Joi
+    const schema = {
+        // check Joi docs for various methods
+        name: Joi.string().min(3).required()
+    }
+
+    // validate body and schema
+    const result = Joi.validate(req.body, schema)
+    // console.log(result)
+
+    // check input validation
+    // if(!req.body.name || req.body.name.length < 3){
+    if(result.error){
+        //status 400
+        // res.status(400).send('Incorrect naming convention. Status 400')
+        res.status(400).send(result.error.details[0].message)
+        // return to exit code
+        return
+    }
     const course = {
         id: courses.length + 1,
         name: req.body.name
