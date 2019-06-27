@@ -1,8 +1,20 @@
 const Joi = require('joi')
+const logger = require('./logger')
+const auth = require('./auth')
 const express = require('express')
 const app = express()
 
 app.use(express.json())
+
+// custom middleware
+// must use next 
+// custom middleware should go in a seperate file
+// see import above
+app.use(logger)
+
+app.use(auth)
+
+
 
 const genres = [
     { id: 1, genre: 'horror'},
