@@ -6,6 +6,9 @@ const auth = require('./auth')
 const express = require('express')
 const app = express()
 
+// console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+// console.log(`app: ${app.get('env')}`)
+
 // built in middleware
 app.use(express.json())
 app.use(express.urlencoded( {extended: true}) )
@@ -13,7 +16,11 @@ app.use(express.static('public'))
 app.use(helmet())
 // morgan logs requests; don't use in production
 // will slow applicatiuon down
-app.use(morgan('tiny'))
+if(app.get('env') === 'development') {
+    app.use(morgan('tiny'))
+    console.log('Morgan enabled....')
+}
+
 
 // custom middleware
 // must use next 
