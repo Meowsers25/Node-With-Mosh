@@ -1,3 +1,5 @@
+const morgan = require('morgan')
+const helmet = require('helmet')
 const Joi = require('joi')
 const logger = require('./logger')
 const auth = require('./auth')
@@ -8,6 +10,10 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded( {extended: true}) )
 app.use(express.static('public'))
+app.use(helmet())
+// morgan logs requests; don't use in production
+// will slow applicatiuon down
+app.use(morgan('tiny'))
 
 // custom middleware
 // must use next 
