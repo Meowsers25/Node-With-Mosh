@@ -1,3 +1,4 @@
+const config = require('config')
 const morgan = require('morgan')
 const helmet = require('helmet')
 const Joi = require('joi')
@@ -14,6 +15,13 @@ app.use(express.json())
 app.use(express.urlencoded( {extended: true}) )
 app.use(express.static('public'))
 app.use(helmet())
+
+// Configuration
+console.log(`Application name ${config.get('name')}`)
+console.log(`Mail server: ${config.get('mail.host')}`)
+console.log(`Mail password: ${config.get('mail.password')}`)
+
+
 // morgan logs requests; don't use in production
 // will slow applicatiuon down
 if(app.get('env') === 'development') {
